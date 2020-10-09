@@ -16,6 +16,9 @@ const Helper = {
             media_url = media_url.replace("_96_p.mp4", "_160.mp4");
         }
         songData.media_url = media_url;
+
+        songData.image_500 = songData.image.replace('150x150', '500x500');
+
         return songData;
     },
 
