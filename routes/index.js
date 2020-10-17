@@ -13,6 +13,8 @@ const AuthMiddleware = require('../middlewares/authmiddleware');
 const SongResource = require('../resources/song-resource');
 const SyncController = require('../controllers/sync-controller');
 
+const SocketClient = require('socket.io-client');
+
 router.get('/search', async function (req, res, next) {
 
   const { query } = req.query;
@@ -76,5 +78,23 @@ router.get('/google-signin', async function (req, res) {
 
 router.post('/sync-up', AuthMiddleware, SyncController.up);
 router.get('/sync-down', AuthMiddleware, SyncController.down);
+
+router.get('/socket', (req, res) => {
+  // This will be the server running
+  const socket = SocketClient('http://localhost:3100');
+
+  // check connection
+  socket.on('connect', _ => {
+    console.log("Connected to server!");
+  });
+
+  // check for search
+  socket.on('search', data => {
+    console.log({ data });
+  });
+
+  // search
+  return res.json({ message: "Socket connection established!" });
+});
 
 module.exports = router;

@@ -7,7 +7,6 @@ const dotenv = require('dotenv');
 const database = require('./lib/database');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
