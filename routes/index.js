@@ -17,17 +17,14 @@ router.get('/search', async function (req, res, next) {
 
   const { query } = req.query;
 
-  // get search response
+  // get search response for first page (20 results)
   const response = (await Axios.get(endpoints.search_base_url + query)).data;
 
-  console.log(response.songs.data);
+  console.log(response.songs);
 
-  // response.songs = await Promise.all(response.songs.data.map(song => {
-  //   return Axios.get(endpoints.song_details_base_url + song.id)
-  // }));
   const songs = [];
 
-  for (const song of response.songs.data) {
+  for (const song of response.results) {
     const songData = (await Axios.get(endpoints.song_details_base_url + song.id)).data;
     const formattedSong = Helper.formatSongDetail(songData[song.id]);
     if (formattedSong) {
