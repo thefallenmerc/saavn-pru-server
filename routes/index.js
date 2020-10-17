@@ -20,7 +20,7 @@ router.get('/search', async function (req, res, next) {
   // get search response
   const response = (await Axios.get(endpoints.search_base_url + query)).data;
 
-  console.log(response);
+  console.log(response.songs.data);
 
   // response.songs = await Promise.all(response.songs.data.map(song => {
   //   return Axios.get(endpoints.song_details_base_url + song.id)
